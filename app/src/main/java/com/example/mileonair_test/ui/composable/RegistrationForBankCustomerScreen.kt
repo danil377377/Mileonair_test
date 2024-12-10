@@ -134,7 +134,7 @@ internal fun RegistrationForBankCustomerScreen(
                 enabled = true,
                 label = {
                     Text(
-                        text = stringResource(id = R.string.number_of_customer_label),
+                        text = stringResource(id = R.string.code_label),
                         color = colorResource(R.color.basic_light_gray),
                     )
                 },
@@ -148,7 +148,7 @@ internal fun RegistrationForBankCustomerScreen(
             )
             Spacer(modifier = Modifier.height(4.dp)) // Добавим немного пространства между TextField и supportingText
             Text(
-                text = stringResource(id = R.string.number_of_customer_support_text),
+                text = stringResource(id = R.string.code_support_text),
                 color = colorResource(id = R.color.basic_light_gray),
                 fontSize = 12.sp
 
@@ -164,7 +164,7 @@ internal fun RegistrationForBankCustomerScreen(
                 enabled = true,
                 label = {
                     Text(
-                        text = stringResource(id = R.string.number_of_customer_label),
+                        text = stringResource(id = R.string.name_lable),
                         color = colorResource(R.color.basic_light_gray),
                     )
                 },
@@ -178,7 +178,7 @@ internal fun RegistrationForBankCustomerScreen(
             )
             Spacer(modifier = Modifier.height(4.dp)) // Добавим немного пространства между TextField и supportingText
             Text(
-                text = stringResource(id = R.string.number_of_customer_support_text),
+                text = stringResource(id = R.string.name_support_text),
                 color = colorResource(id = R.color.basic_light_gray),
                 fontSize = 12.sp
 
@@ -194,7 +194,7 @@ internal fun RegistrationForBankCustomerScreen(
                 enabled = true,
                 label = {
                     Text(
-                        text = stringResource(id = R.string.number_of_customer_label),
+                        text = stringResource(id = R.string.surname_label),
                         color = colorResource(R.color.basic_light_gray),
                     )
                 },
@@ -208,7 +208,7 @@ internal fun RegistrationForBankCustomerScreen(
             )
             Spacer(modifier = Modifier.height(4.dp)) // Добавим немного пространства между TextField и supportingText
             Text(
-                text = stringResource(id = R.string.number_of_customer_support_text),
+                text = stringResource(id = R.string.surname_support_text),
                 color = colorResource(id = R.color.basic_light_gray),
                 fontSize = 12.sp
 

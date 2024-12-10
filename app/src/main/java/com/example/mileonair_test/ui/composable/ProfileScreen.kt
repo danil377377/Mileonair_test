@@ -39,7 +39,7 @@ internal fun ProfileScreen(
     name: String = "Name",
 ) {
 
-    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
+    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(bottom = dimensionResource(R.dimen.medium_padding))) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.Bottom

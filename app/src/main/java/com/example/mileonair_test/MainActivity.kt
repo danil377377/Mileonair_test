@@ -59,14 +59,15 @@ class MainActivity : ComponentActivity() {
                         onBack = {}
                     ) {
 
-                            RegistrationForBankCustomerScreen(numberFromBankProvider = { numberFromBank },
-                                codeFromBankProvider = { codeFromBank },
-                                nameProvider = { name },
-                                surnameProvider = { surname },
-                                onNameInputChange = { name = it },
-                                onSurnameInputChange = { surname = it },
-                                onNumberFromBankInputChange = { numberFromBank = it },
-                                onCodeFromBankInputChange = { codeFromBank = it })
+//                            RegistrationForBankCustomerScreen(numberFromBankProvider = { numberFromBank },
+//                                codeFromBankProvider = { codeFromBank },
+//                                nameProvider = { name },
+//                                surnameProvider = { surname },
+//                                onNameInputChange = { name = it },
+//                                onSurnameInputChange = { surname = it },
+//                                onNumberFromBankInputChange = { numberFromBank = it },
+//                                onCodeFromBankInputChange = { codeFromBank = it })
+                        ProfileScreen()
 
                     }
 
