@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Mileonair_test</string>
+    <string name="number_plug">+79243014334</string>
+    <string name="email_plug">kursantik341@gmail.com</string>
+    <string name="language_plug">русский</string>
+    <string name="my_purchases_header">МОИ ПОКУПКИ</string>
+    <string name="settings_header">НАСТРОЙКИ</string>
+    <string name="need_to_be_approve_hint">необходимо подтвердить</string>
+    <string name="email_header">E-mail</string>
+    <string name="language_header">Язык</string>
+    <string name="change_code_header">Сменить 4-х значный код</string>
+    <string name="registration_for_bank_customer_header">Регистрация для клиентов банка</string>
+    <string name="entry_by_biometry">Вход по биометрии</string>
 </resources>

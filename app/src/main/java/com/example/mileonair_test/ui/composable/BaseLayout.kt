@@ -13,6 +13,7 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ButtonElevation
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -20,8 +21,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+
 import com.example.mileonair_test.R
 
 
@@ -34,27 +37,25 @@ internal fun BaseLayout(
     Column(
         modifier = Modifier.fillMaxSize()
             .then(modifier)
-            .padding(16.dp),
-        verticalArrangement = Arrangement.SpaceBetween,
+            .padding(top = dimensionResource(R.dimen.small_padding))
+            .padding(horizontal = dimensionResource(R.dimen.medium_padding)),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
 
         OutlinedButton(
-            modifier = Modifier.align(Alignment.Start),
+            modifier = Modifier.align(Alignment.Start).padding(bottom = dimensionResource(R.dimen.extra_large_padding)),
             onClick = onBack,
             border = BorderStroke(2.dp, colorResource(R.color.container_bacground_dark)),
             colors = ButtonDefaults.outlinedButtonColors(
                 contentColor = Color.White,
             ),
 contentPadding = PaddingValues(12.dp)
-
         ) {
             Row() {
                 Icon(painter = painterResource(R.drawable.arrow_back), "back_button")
-                Text("Назад", modifier = Modifier.align(Alignment.CenterVertically))
+                Text("Назад", modifier = Modifier.align(Alignment.CenterVertically),style = MaterialTheme.typography.bodyLarge)
             }
         }
-
         content()
     }
 }

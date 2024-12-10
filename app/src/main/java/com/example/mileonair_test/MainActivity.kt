@@ -16,6 +16,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.mileonair_test.ui.composable.BaseLayout
+import com.example.mileonair_test.ui.composable.ProfileScreen
 import com.example.mileonair_test.ui.theme.Mileonair_testTheme
 
 class MainActivity : ComponentActivity() {
@@ -42,7 +43,7 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.padding(innerPadding),
                         onBack = {}
                     ) {
-
+                        ProfileScreen()
                     }
 
                 }
