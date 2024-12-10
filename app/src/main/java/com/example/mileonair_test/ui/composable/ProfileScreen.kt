@@ -9,8 +9,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Text
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -37,7 +39,7 @@ internal fun ProfileScreen(
     name: String = "Name",
 ) {
 
-    Column(Modifier.fillMaxSize()) {
+    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.Bottom
@@ -142,7 +144,7 @@ internal fun ProfileScreen(
                     text = stringResource(R.string.need_to_be_approve_hint),
                     style = MaterialTheme.typography.bodySmall,
                     fontSize = 10.sp,
-                    color = colorResource(R.color.white_red),
+                    color = colorResource(R.color.white_red_inactive),
                 )
 
             }

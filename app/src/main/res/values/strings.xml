@@ -11,4 +11,13 @@
     <string name="change_code_header">Сменить 4-х значный код</string>
     <string name="registration_for_bank_customer_header">Регистрация для клиентов банка</string>
     <string name="entry_by_biometry">Вход по биометрии</string>
+    <string name="registration_for_bank_customers_header">Регистрация для клиентов банка</string>
+    <string name="number_of_customer_label">Номер участника</string>
+    <string name="code_label">Код</string>
+    <string name="name_lable">Имя</string>
+    <string name="surname_label">Фамилия</string>
+    <string name="number_of_customer_support_text">Номер из 16 символов, который вы получили от банка</string>
+    <string name="code_support_text">Код, который вы получили от банка</string>
+    <string name="name_support_text">Имя(на латинице, как в загранпаспорте)</string>
+    <string name="surname_support_text">Фамилия(на латинице, как в загранпаспорте)</string>
 </resources>

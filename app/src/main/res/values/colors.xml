@@ -7,9 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="white_red">#cc6c7c</color>
+    <color name="white_red_inactive">#C8596A</color>
+    <color name="white_red_active">#F61D3E</color>
     <color name="bacground_gradient_from">#FF403C57</color>
     <color name="bacground_gradient_to">#FF2A2545</color>
     <color name="container_bacground_dark">#FF262239</color>
     <color name="basic_light_gray">#9698a5</color>
+    <color name="addition_light_gray">#ededef</color>
 </resources>
