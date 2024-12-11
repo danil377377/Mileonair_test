@@ -3,6 +3,7 @@ package com.example.mileonair_test.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.mileonair_test.domain.api.RegistrationRepository
+import com.example.mileonair_test.domain.impl.SaveRegistrationDataUseCase
 import com.example.mileonair_test.domain.model.RegistrationData
 import com.example.mileonair_test.mvi.RegistrationAction
 import com.example.mileonair_test.mvi.RegistrationEffect
@@ -17,7 +18,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class RegistrationViewModel @Inject constructor(private val repository: RegistrationRepository) : ViewModel() {
+class RegistrationViewModel @Inject constructor(private val saveRegistrationDataUseCase: SaveRegistrationDataUseCase) : ViewModel() {
     private val _state = MutableStateFlow(RegistrationState())
     val state: StateFlow<RegistrationState> = _state.asStateFlow()
 
@@ -50,7 +51,7 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
                         number = _state.value.number,
                         code = _state.value.code
                     )
-                    repository.saveRegistrationData(data)
+                    saveRegistrationDataUseCase(data)
                     _effect.emit(RegistrationEffect.UpdateState(state.value))
                 }
             }
@@ -59,11 +60,23 @@ class RegistrationViewModel @Inject constructor(private val repository: Registra
 
     private fun validateAndEnableButton() {
         val newState = _state.value.copy(
-            isButtonEnabled = (_state.value.name.isNotBlank() &&
-                    _state.value.surname.isNotBlank() &&
-                    _state.value.number.isNotBlank() &&
-                    _state.value.code.isNotBlank())
+            isButtonEnabled = (isNameCorrect(_state.value.name) &&
+                    isSurnameCorrect(_state.value.surname) &&
+                    isNumberCorrect(_state.value.number) &&
+                    isCodeCorrect(_state.value.code))
         )
         _state.value = newState
+    }
+    fun isNumberCorrect(value: String): Boolean{
+        return value.isNotBlank() && value.length == 16
+    }
+    fun isCodeCorrect(value: String): Boolean{
+        return value.isNotBlank()
+    }
+    fun isNameCorrect(value: String): Boolean{
+        return value.isNotBlank()
+    }
+    fun isSurnameCorrect(value: String): Boolean{
+        return value.isNotBlank()
     }
 }

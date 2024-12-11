@@ -46,6 +46,7 @@ import androidx.compose.ui.unit.sp
 import com.example.mileonair_test.R
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
@@ -64,7 +65,10 @@ onContinue: ()-> Unit
 
     val myTextFieldColors = TextFieldDefaults.textFieldColors(
         unfocusedIndicatorColor = Color.Transparent,
-        focusedIndicatorColor = Color.Transparent
+        focusedIndicatorColor = Color.Transparent,
+        focusedTextColor = Color.White,
+        unfocusedTextColor = Color.White,
+        containerColor = colorResource(R.color.container_bacground_dark)
 
     )
     val myButtonColors = ButtonDefaults.filledTonalButtonColors(
@@ -73,10 +77,6 @@ onContinue: ()-> Unit
         disabledContainerColor = colorResource(R.color.white_red_inactive),
         disabledContentColor = Color.White
     )
-//    val numberFromBank = numberFromBankProvider()
-//    val codeFromBank = codeFromBankProvider()
-//    val name = nameProvider()
-//    val surname = surnameProvider()
     val keyboardController = LocalSoftwareKeyboardController.current
     Box(Modifier.fillMaxSize()) {
         Column(
@@ -105,7 +105,7 @@ onContinue: ()-> Unit
                 value = state.number,
                 onValueChange = { viewModel.dispatch(RegistrationAction.NumberChanged(it)) },
                 enabled = true,
-                label = {
+                placeholder = {
                     Text(
                         text = stringResource(id = R.string.number_of_customer_label),
                         color = colorResource(R.color.basic_light_gray),
@@ -117,7 +117,8 @@ onContinue: ()-> Unit
                     imeAction = ImeAction.Next
                 ),
                 keyboardActions = KeyboardActions(onNext = { keyboardController?.hide() }),
-                colors = myTextFieldColors
+                colors = myTextFieldColors,
+                textStyle = MaterialTheme.typography.headlineMedium
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
@@ -136,7 +137,7 @@ onContinue: ()-> Unit
                 value = state.code,
                 onValueChange = { viewModel.dispatch(RegistrationAction.CodeChanged(it)) },
                 enabled = true,
-                label = {
+                placeholder = {
                     Text(
                         text = stringResource(id = R.string.code_label),
                         color = colorResource(R.color.basic_light_gray),
@@ -148,7 +149,8 @@ onContinue: ()-> Unit
                     imeAction = ImeAction.Next
                 ),
                 keyboardActions = KeyboardActions(onNext = { keyboardController?.hide() }),
-                colors = myTextFieldColors
+                colors = myTextFieldColors,
+                textStyle = MaterialTheme.typography.headlineMedium
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
@@ -166,7 +168,7 @@ onContinue: ()-> Unit
                 value = state.name,
                 onValueChange = {  viewModel.dispatch(RegistrationAction.NameChanged(it)) },
                 enabled = true,
-                label = {
+                placeholder = {
                     Text(
                         text = stringResource(id = R.string.name_lable),
                         color = colorResource(R.color.basic_light_gray),
@@ -174,11 +176,12 @@ onContinue: ()-> Unit
                 },
                 keyboardOptions = KeyboardOptions(
                     capitalization = KeyboardCapitalization.None,
-                    keyboardType = KeyboardType.Number,
+                    keyboardType = KeyboardType.Text,
                     imeAction = ImeAction.Next
                 ),
                 keyboardActions = KeyboardActions(onNext = { keyboardController?.hide() }),
-                colors = myTextFieldColors
+                colors = myTextFieldColors,
+                textStyle = MaterialTheme.typography.headlineMedium
             )
             Spacer(modifier = Modifier.height(4.dp))
             Text(
@@ -196,7 +199,7 @@ onContinue: ()-> Unit
                 value = state.surname, // Изменено: доступ к тексту через numberFromBank.text
                 onValueChange = { viewModel.dispatch(RegistrationAction.SurnameChanged(it)) }, // Изменено: передача TextFieldValue
                 enabled = true,
-                label = {
+                placeholder = {
                     Text(
                         text = stringResource(id = R.string.surname_label),
                         color = colorResource(R.color.basic_light_gray),
@@ -204,11 +207,12 @@ onContinue: ()-> Unit
                 },
                 keyboardOptions = KeyboardOptions(
                     capitalization = KeyboardCapitalization.None,
-                    keyboardType = KeyboardType.Number,
+                    keyboardType = KeyboardType.Text,
                     imeAction = ImeAction.Next // Изменено: ImeAction.Next для перехода к следующему полю
                 ),
                 keyboardActions = KeyboardActions(onNext = { keyboardController?.hide() }),
-                colors = myTextFieldColors
+                colors = myTextFieldColors,
+                textStyle = MaterialTheme.typography.headlineMedium
             )
             Spacer(modifier = Modifier.height(4.dp)) // Добавим немного пространства между TextField и supportingText
             Text(
