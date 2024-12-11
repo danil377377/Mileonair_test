@@ -25,6 +25,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.mileonair_test.navigation.NavRoutes
 import com.example.mileonair_test.ui.composable.BaseLayout
 import com.example.mileonair_test.ui.composable.ProfileScreen
 import com.example.mileonair_test.ui.composable.RegistrationForBankCustomerScreen
@@ -35,42 +39,50 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            var numberFromBank by remember { mutableStateOf(TextFieldValue("")) }
-            var codeFromBank by remember { mutableStateOf(TextFieldValue("")) }
-            var name by remember { mutableStateOf(TextFieldValue("")) }
-            var surname by remember { mutableStateOf(TextFieldValue("")) }
-            Mileonair_testTheme {
-                Scaffold(
-                    containerColor = Color.Transparent,
-                    contentColor = Color.White,
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(
-                            brush = Brush.verticalGradient(
-                                colors = listOf(
-                                    colorResource(R.color.bacground_gradient_from),
-                                    colorResource(R.color.bacground_gradient_from)
-                                )
-                            )
-                        )
-                ) { innerPadding ->
-                    BaseLayout(
-                        modifier = Modifier.padding(innerPadding),
-                        onBack = {}
-                    ) {
+                    Main()
+            }
+        }
+    }
 
-//                            RegistrationForBankCustomerScreen(numberFromBankProvider = { numberFromBank },
-//                                codeFromBankProvider = { codeFromBank },
-//                                nameProvider = { name },
-//                                surnameProvider = { surname },
-//                                onNameInputChange = { name = it },
-//                                onSurnameInputChange = { surname = it },
-//                                onNumberFromBankInputChange = { numberFromBank = it },
-//                                onCodeFromBankInputChange = { codeFromBank = it })
-                        ProfileScreen()
 
-                    }
-
+@Composable
+fun Main() {
+    var numberFromBank by remember { mutableStateOf(TextFieldValue("")) }
+    var codeFromBank by remember { mutableStateOf(TextFieldValue("")) }
+    var name by remember { mutableStateOf(TextFieldValue("")) }
+    var surname by remember { mutableStateOf(TextFieldValue("")) }
+    val navController = rememberNavController()
+    Mileonair_testTheme {
+    }
+    Scaffold(
+        containerColor = Color.Transparent,
+        contentColor = Color.White,
+        modifier = Modifier
+            .fillMaxSize()
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        colorResource(R.color.bacground_gradient_from),
+                        colorResource(R.color.bacground_gradient_from)
+                    )
+                )
+            )
+    ) { innerPadding ->
+        BaseLayout(
+            modifier = Modifier.padding(innerPadding),
+            onBack = { navController.navigateUp() }
+        ) {
+            NavHost(navController, startDestination = NavRoutes.Profile.route) {
+                composable(NavRoutes.Profile.route) { ProfileScreen(onRegistrationClick = { navController.navigate(NavRoutes.RegistartionForBankCustomer.route) }) }
+                composable(NavRoutes.RegistartionForBankCustomer.route) {
+                    RegistrationForBankCustomerScreen(numberFromBankProvider = { numberFromBank },
+                        codeFromBankProvider = { codeFromBank },
+                        nameProvider = { name },
+                        surnameProvider = { surname },
+                        onNameInputChange = { name = it },
+                        onSurnameInputChange = { surname = it },
+                        onNumberFromBankInputChange = { numberFromBank = it },
+                        onCodeFromBankInputChange = { codeFromBank = it })
                 }
             }
         }
