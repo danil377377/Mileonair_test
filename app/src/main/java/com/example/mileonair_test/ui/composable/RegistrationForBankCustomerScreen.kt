@@ -27,6 +27,8 @@ import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -48,33 +50,33 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.withStyle
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.example.mileonair_test.mvi.RegistrationAction
+import com.example.mileonair_test.presentation.RegistrationViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun RegistrationForBankCustomerScreen(
-    numberFromBankProvider: () -> TextFieldValue,
-    codeFromBankProvider: () -> TextFieldValue,
-    nameProvider: () -> TextFieldValue,
-    surnameProvider: () -> TextFieldValue,
-    onNameInputChange: (TextFieldValue) -> Unit,
-    onSurnameInputChange: (TextFieldValue) -> Unit,
-    onCodeFromBankInputChange: (TextFieldValue) -> Unit,
-    onNumberFromBankInputChange: (TextFieldValue) -> Unit,
-    onContinueClick: ()->Unit
+    viewModel: RegistrationViewModel = hiltViewModel(),
+onContinue: ()-> Unit
+    ) {
+    val state by viewModel.state.collectAsState()
 
-) {
     val myTextFieldColors = TextFieldDefaults.textFieldColors(
         unfocusedIndicatorColor = Color.Transparent,
-        focusedIndicatorColor = Color.Transparent //необязательно
-        // ... другие цвета ...
+        focusedIndicatorColor = Color.Transparent
+
     )
     val myButtonColors = ButtonDefaults.filledTonalButtonColors(
-        containerColor = colorResource(R.color.white_red_active)
+        containerColor = colorResource(R.color.white_red_active),
+        contentColor = Color.White,
+        disabledContainerColor = colorResource(R.color.white_red_inactive),
+        disabledContentColor = Color.White
     )
-    val numberFromBank = numberFromBankProvider()
-    val codeFromBank = codeFromBankProvider()
-    val name = nameProvider()
-    val surname = surnameProvider()
+//    val numberFromBank = numberFromBankProvider()
+//    val codeFromBank = codeFromBankProvider()
+//    val name = nameProvider()
+//    val surname = surnameProvider()
     val keyboardController = LocalSoftwareKeyboardController.current
     Box(Modifier.fillMaxSize()) {
         Column(
@@ -100,8 +102,8 @@ internal fun RegistrationForBankCustomerScreen(
                     .background(Color.Transparent)
                     .fillMaxWidth(),
                 shape = RoundedCornerShape(16.dp),
-                value = numberFromBank, // Изменено: доступ к тексту через numberFromBank.text
-                onValueChange = { onNumberFromBankInputChange((it)) }, // Изменено: передача TextFieldValue
+                value = state.number,
+                onValueChange = { viewModel.dispatch(RegistrationAction.NumberChanged(it)) },
                 enabled = true,
                 label = {
                     Text(
@@ -112,12 +114,12 @@ internal fun RegistrationForBankCustomerScreen(
                 keyboardOptions = KeyboardOptions(
                     capitalization = KeyboardCapitalization.None,
                     keyboardType = KeyboardType.Number,
-                    imeAction = ImeAction.Next // Изменено: ImeAction.Next для перехода к следующему полю
+                    imeAction = ImeAction.Next
                 ),
                 keyboardActions = KeyboardActions(onNext = { keyboardController?.hide() }),
                 colors = myTextFieldColors
             )
-            Spacer(modifier = Modifier.height(4.dp)) // Добавим немного пространства между TextField и supportingText
+            Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = stringResource(id = R.string.number_of_customer_support_text),
                 color = colorResource(id = R.color.basic_light_gray),
@@ -131,8 +133,8 @@ internal fun RegistrationForBankCustomerScreen(
                     .fillMaxWidth()
                     .padding(top = dimensionResource(R.dimen.medium_padding)),
                 shape = RoundedCornerShape(16.dp),
-                value = numberFromBank, // Изменено: доступ к тексту через numberFromBank.text
-                onValueChange = { onNumberFromBankInputChange((it)) }, // Изменено: передача TextFieldValue
+                value = state.code,
+                onValueChange = { viewModel.dispatch(RegistrationAction.CodeChanged(it)) },
                 enabled = true,
                 label = {
                     Text(
@@ -143,12 +145,12 @@ internal fun RegistrationForBankCustomerScreen(
                 keyboardOptions = KeyboardOptions(
                     capitalization = KeyboardCapitalization.None,
                     keyboardType = KeyboardType.Number,
-                    imeAction = ImeAction.Next // Изменено: ImeAction.Next для перехода к следующему полю
+                    imeAction = ImeAction.Next
                 ),
                 keyboardActions = KeyboardActions(onNext = { keyboardController?.hide() }),
                 colors = myTextFieldColors
             )
-            Spacer(modifier = Modifier.height(4.dp)) // Добавим немного пространства между TextField и supportingText
+            Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = stringResource(id = R.string.code_support_text),
                 color = colorResource(id = R.color.basic_light_gray),
@@ -161,8 +163,8 @@ internal fun RegistrationForBankCustomerScreen(
                     .fillMaxWidth()
                     .padding(top = dimensionResource(R.dimen.medium_padding)),
                 shape = RoundedCornerShape(16.dp),
-                value = numberFromBank, // Изменено: доступ к тексту через numberFromBank.text
-                onValueChange = { onNumberFromBankInputChange((it)) }, // Изменено: передача TextFieldValue
+                value = state.name,
+                onValueChange = {  viewModel.dispatch(RegistrationAction.NameChanged(it)) },
                 enabled = true,
                 label = {
                     Text(
@@ -173,12 +175,12 @@ internal fun RegistrationForBankCustomerScreen(
                 keyboardOptions = KeyboardOptions(
                     capitalization = KeyboardCapitalization.None,
                     keyboardType = KeyboardType.Number,
-                    imeAction = ImeAction.Next // Изменено: ImeAction.Next для перехода к следующему полю
+                    imeAction = ImeAction.Next
                 ),
                 keyboardActions = KeyboardActions(onNext = { keyboardController?.hide() }),
                 colors = myTextFieldColors
             )
-            Spacer(modifier = Modifier.height(4.dp)) // Добавим немного пространства между TextField и supportingText
+            Spacer(modifier = Modifier.height(4.dp))
             Text(
                 text = stringResource(id = R.string.name_support_text),
                 color = colorResource(id = R.color.basic_light_gray),
@@ -191,8 +193,8 @@ internal fun RegistrationForBankCustomerScreen(
                     .fillMaxWidth()
                     .padding(top = dimensionResource(R.dimen.medium_padding)),
                 shape = RoundedCornerShape(16.dp),
-                value = numberFromBank, // Изменено: доступ к тексту через numberFromBank.text
-                onValueChange = { onNumberFromBankInputChange((it)) }, // Изменено: передача TextFieldValue
+                value = state.surname, // Изменено: доступ к тексту через numberFromBank.text
+                onValueChange = { viewModel.dispatch(RegistrationAction.SurnameChanged(it)) }, // Изменено: передача TextFieldValue
                 enabled = true,
                 label = {
                     Text(
@@ -225,9 +227,11 @@ internal fun RegistrationForBankCustomerScreen(
                 append("условиями участия")
             }
         }
-        Column(modifier = Modifier
-            .fillMaxWidth()
-            .align(Alignment.BottomCenter)) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.BottomCenter)
+        ) {
             Text(
                 annotatedString,
                 modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -236,9 +240,11 @@ internal fun RegistrationForBankCustomerScreen(
                 color = colorResource(R.color.addition_light_gray)
             )
             FilledTonalButton(
-                {onContinueClick()},
+                { viewModel.dispatch(RegistrationAction.Submit)
+                onContinue()},
                 colors = myButtonColors,
                 modifier = Modifier.fillMaxWidth(),
+                enabled = state.isButtonEnabled
             ) { Text("Продолжить") }
         }
     }

@@ -15,6 +15,8 @@ import androidx.compose.material.Text
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,15 +27,19 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.mileonair_test.R
+import com.example.mileonair_test.presentation.ProfileViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 
 @Composable
 internal fun ProfileScreen(
-    surname: String = "Surname",
-    name: String = "Name",
-    onRegistrationClick: ()-> Unit
+    onRegistrationClick: ()-> Unit,
+    viewModel: ProfileViewModel = hiltViewModel()
 ) {
-
+val registrationData by viewModel.registrationData.collectAsState()
+    val name = registrationData?.name ?: "Name"
+    val surname = registrationData?.surname ?: "Surname"
     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(bottom = dimensionResource(R.dimen.medium_padding))) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,

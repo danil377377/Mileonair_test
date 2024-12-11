@@ -33,7 +33,9 @@ import com.example.mileonair_test.ui.composable.BaseLayout
 import com.example.mileonair_test.ui.composable.ProfileScreen
 import com.example.mileonair_test.ui.composable.RegistrationForBankCustomerScreen
 import com.example.mileonair_test.ui.theme.Mileonair_testTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,15 +78,7 @@ fun Main() {
             NavHost(navController, startDestination = NavRoutes.Profile.route) {
                 composable(NavRoutes.Profile.route) { ProfileScreen(onRegistrationClick = { navController.navigate(NavRoutes.RegistartionForBankCustomer.route) }) }
                 composable(NavRoutes.RegistartionForBankCustomer.route) {
-                    RegistrationForBankCustomerScreen(numberFromBankProvider = { numberFromBank },
-                        codeFromBankProvider = { codeFromBank },
-                        nameProvider = { name },
-                        surnameProvider = { surname },
-                        onNameInputChange = { name = it },
-                        onSurnameInputChange = { surname = it },
-                        onNumberFromBankInputChange = { numberFromBank = it },
-                        onCodeFromBankInputChange = { codeFromBank = it },
-                        onContinueClick = {navController.navigate(NavRoutes.Profile.route)})
+                    RegistrationForBankCustomerScreen(onContinue = { navController.navigate((NavRoutes.Profile.route)) })
                 }
             }
         }

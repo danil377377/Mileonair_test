@@ -10,7 +10,7 @@ import javax.inject.Singleton
 @Singleton
 class RegistrationRepositoryImpl  @Inject constructor() : RegistrationRepository {
     private val _registrationData = MutableStateFlow<RegistrationData?>(null)
-    val registrationData: StateFlow<RegistrationData?> = _registrationData
+    override val registrationData: StateFlow<RegistrationData?> = _registrationData
 
    override suspend fun saveRegistrationData(data: RegistrationData) {
         _registrationData.value = data
