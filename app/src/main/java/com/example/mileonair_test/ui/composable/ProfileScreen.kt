@@ -35,6 +35,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 @Composable
 internal fun ProfileScreen(
     onRegistrationClick: ()-> Unit,
+    onPurchasesClick: () -> Unit,
     viewModel: ProfileViewModel = hiltViewModel()
 ) {
 val registrationData by viewModel.registrationData.collectAsState()
@@ -91,6 +92,7 @@ val registrationData by viewModel.registrationData.collectAsState()
                         R.dimen.large_padding
                     )
                 )
+                .clickable { onPurchasesClick() }
         ) {
             Icon(painter = painterResource(R.drawable.mileonair_logo), "mileonair_logo")
             Icon(painter = painterResource(R.drawable.arrow_right), "right_button")

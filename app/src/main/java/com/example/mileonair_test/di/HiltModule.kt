@@ -1,6 +1,8 @@
 package com.example.mileonair_test.di
 
+import com.example.mileonair_test.data.impl.PurchaseRepositoryImpl
 import com.example.mileonair_test.data.impl.RegistrationRepositoryImpl
+import com.example.mileonair_test.domain.api.PurchaseRepository
 import com.example.mileonair_test.domain.api.RegistrationRepository
 import dagger.Component
 import dagger.Module
@@ -16,5 +18,10 @@ object AppModule {
     @Singleton
     fun provideRegistrationRepository(): RegistrationRepository {
         return RegistrationRepositoryImpl()
+    }
+    @Provides
+    @Singleton
+    fun providePurchasesRepository(): PurchaseRepository {
+        return PurchaseRepositoryImpl()
     }
 }

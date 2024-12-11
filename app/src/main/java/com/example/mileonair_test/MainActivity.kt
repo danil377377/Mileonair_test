@@ -31,6 +31,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.mileonair_test.navigation.NavRoutes
 import com.example.mileonair_test.ui.composable.BaseLayout
 import com.example.mileonair_test.ui.composable.ProfileScreen
+import com.example.mileonair_test.ui.composable.PurchasesScreen
 import com.example.mileonair_test.ui.composable.RegistrationForBankCustomerScreen
 import com.example.mileonair_test.ui.theme.Mileonair_testTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -41,10 +42,10 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-                    Main()
-            }
+            Main()
         }
     }
+}
 
 
 @Composable
@@ -72,14 +73,23 @@ fun Main() {
     ) { innerPadding ->
         BaseLayout(
             modifier = Modifier.padding(innerPadding),
-            onBack = {val currentRoute = navController.currentBackStackEntry?.destination?.route
-                if(currentRoute == NavRoutes.RegistartionForBankCustomer.route) navController.navigateUp() }
+            onBack = {
+                val currentRoute = navController.currentBackStackEntry?.destination?.route
+                if (currentRoute != NavRoutes.Profile.route) navController.navigateUp()
+            }
         ) {
             NavHost(navController, startDestination = NavRoutes.Profile.route) {
-                composable(NavRoutes.Profile.route) { ProfileScreen(onRegistrationClick = { navController.navigate(NavRoutes.RegistartionForBankCustomer.route) }) }
+                composable(NavRoutes.Profile.route) {
+                    ProfileScreen(onRegistrationClick = {
+                        navController.navigate(
+                            NavRoutes.RegistartionForBankCustomer.route
+                        )
+                    }, onPurchasesClick = { navController.navigate(NavRoutes.Purchases.route) })
+                }
                 composable(NavRoutes.RegistartionForBankCustomer.route) {
                     RegistrationForBankCustomerScreen(onContinue = { navController.navigate((NavRoutes.Profile.route)) })
                 }
+                composable(NavRoutes.Purchases.route) { PurchasesScreen() }
             }
         }
     }
