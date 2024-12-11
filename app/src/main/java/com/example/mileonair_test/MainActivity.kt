@@ -70,7 +70,8 @@ fun Main() {
     ) { innerPadding ->
         BaseLayout(
             modifier = Modifier.padding(innerPadding),
-            onBack = { navController.navigateUp() }
+            onBack = {val currentRoute = navController.currentBackStackEntry?.destination?.route
+                if(currentRoute == NavRoutes.RegistartionForBankCustomer.route) navController.navigateUp() }
         ) {
             NavHost(navController, startDestination = NavRoutes.Profile.route) {
                 composable(NavRoutes.Profile.route) { ProfileScreen(onRegistrationClick = { navController.navigate(NavRoutes.RegistartionForBankCustomer.route) }) }
@@ -82,7 +83,8 @@ fun Main() {
                         onNameInputChange = { name = it },
                         onSurnameInputChange = { surname = it },
                         onNumberFromBankInputChange = { numberFromBank = it },
-                        onCodeFromBankInputChange = { codeFromBank = it })
+                        onCodeFromBankInputChange = { codeFromBank = it },
+                        onContinueClick = {navController.navigate(NavRoutes.Profile.route)})
                 }
             }
         }

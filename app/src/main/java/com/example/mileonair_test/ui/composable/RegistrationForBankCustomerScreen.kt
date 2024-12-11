@@ -56,10 +56,12 @@ internal fun RegistrationForBankCustomerScreen(
     codeFromBankProvider: () -> TextFieldValue,
     nameProvider: () -> TextFieldValue,
     surnameProvider: () -> TextFieldValue,
-    onNameInputChange: (TextFieldValue) -> Unit, // Изменено: принимает TextFieldValue
-    onSurnameInputChange: (TextFieldValue) -> Unit, // Изменено: принимает TextFieldValue
+    onNameInputChange: (TextFieldValue) -> Unit,
+    onSurnameInputChange: (TextFieldValue) -> Unit,
+    onCodeFromBankInputChange: (TextFieldValue) -> Unit,
     onNumberFromBankInputChange: (TextFieldValue) -> Unit,
-    onCodeFromBankInputChange: (TextFieldValue) -> Unit, // Изменено: принимает TextFieldValue
+    onContinueClick: ()->Unit
+
 ) {
     val myTextFieldColors = TextFieldDefaults.textFieldColors(
         unfocusedIndicatorColor = Color.Transparent,
@@ -234,7 +236,7 @@ internal fun RegistrationForBankCustomerScreen(
                 color = colorResource(R.color.addition_light_gray)
             )
             FilledTonalButton(
-                {},
+                {onContinueClick()},
                 colors = myButtonColors,
                 modifier = Modifier.fillMaxWidth(),
             ) { Text("Продолжить") }
