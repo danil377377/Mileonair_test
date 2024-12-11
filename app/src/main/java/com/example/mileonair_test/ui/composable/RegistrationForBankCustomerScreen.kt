@@ -88,7 +88,7 @@ internal fun RegistrationForBankCustomerScreen(
             Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
-                .padding(bottom = dimensionResource(R.dimen.large_padding))
+                .padding(bottom = dimensionResource(R.dimen.special_large_padding))
         ) {
             Text(
                 modifier = Modifier

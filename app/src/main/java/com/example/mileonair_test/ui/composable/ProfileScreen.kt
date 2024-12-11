@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -44,7 +45,8 @@ val registrationData by viewModel.registrationData.collectAsState()
     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(bottom = dimensionResource(R.dimen.medium_padding))) {
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.Bottom
+            verticalAlignment = Alignment.Bottom,
+
         ) {
             Text(
                 text = "$surname\n\n$name",
@@ -53,7 +55,7 @@ val registrationData by viewModel.registrationData.collectAsState()
                 color = Color.White,
                 fontWeight = FontWeight.Bold
             )
-            Icon(
+            Icon(modifier = Modifier.padding(start = dimensionResource(R.dimen.medium_padding)),
                 painter = painterResource(id = R.drawable.edit_icon_v2),
                 contentDescription = "edit_icon",
                 tint = colorResource(R.color.basic_light_gray)
