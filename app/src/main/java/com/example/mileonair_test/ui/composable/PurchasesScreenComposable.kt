@@ -1,10 +1,12 @@
 package com.example.mileonair_test.ui.composable
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.mileonair_test.presentation.PurchasesViewModel
 
@@ -12,7 +14,7 @@ import com.example.mileonair_test.presentation.PurchasesViewModel
 fun PurchasesScreen(viewModel: PurchasesViewModel = hiltViewModel()) {
     val purchaseGroups = viewModel.purchaseGroups.collectAsState().value
 
-    LazyColumn {
+    LazyColumn(modifier = Modifier.fillMaxSize()) {
         purchaseGroups.forEach { group ->
             item {
                 Text(text = group.date, style = MaterialTheme.typography.headlineMedium)
