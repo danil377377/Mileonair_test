@@ -6,4 +6,8 @@ data class RegistrationState(
     val number: String = "",
     val code: String = "",
     val isButtonEnabled: Boolean = false,
+    val nameError: Boolean = true,
+    val surnameError: Boolean = true,
+    val numberError: Boolean = false,
+    val codeError: Boolean = true,
 )

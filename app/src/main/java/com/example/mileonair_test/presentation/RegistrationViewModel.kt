@@ -29,19 +29,19 @@ class RegistrationViewModel @Inject constructor(private val saveRegistrationData
         viewModelScope.launch {
             when (action) {
                 is RegistrationAction.NameChanged -> {
-                    _state.value = _state.value.copy(name = action.name)
+                    _state.value = _state.value.copy(name = action.name, nameError = isNameCorrect(action.name))
                     validateAndEnableButton()
                 }
                 is RegistrationAction.SurnameChanged -> {
-                    _state.value = _state.value.copy(surname = action.surname)
+                    _state.value = _state.value.copy(surname = action.surname, surnameError = isSurnameCorrect(action.surname))
                     validateAndEnableButton()
                 }
                 is RegistrationAction.NumberChanged -> {
-                    _state.value = _state.value.copy(number = action.number)
+                    _state.value = _state.value.copy(number = action.number, numberError = isNumberCorrect(action.number))
                     validateAndEnableButton()
                 }
                 is RegistrationAction.CodeChanged -> {
-                    _state.value = _state.value.copy(code = action.code)
+                    _state.value = _state.value.copy(code = action.code, codeError = isCodeCorrect(action.code))
                     validateAndEnableButton()
                 }
                 is RegistrationAction.Submit -> {

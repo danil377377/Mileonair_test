@@ -16,11 +16,13 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
 
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldColors
@@ -59,17 +61,20 @@ import com.example.mileonair_test.presentation.RegistrationViewModel
 @Composable
 internal fun RegistrationForBankCustomerScreen(
     viewModel: RegistrationViewModel = hiltViewModel(),
-onContinue: ()-> Unit
-    ) {
+    onContinue: () -> Unit,
+) {
     val state by viewModel.state.collectAsState()
 
-    val myTextFieldColors = TextFieldDefaults.textFieldColors(
-        unfocusedIndicatorColor = Color.Transparent,
-        focusedIndicatorColor = Color.Transparent,
+    val myTextFieldColors = TextFieldDefaults.outlinedTextFieldColors(
         focusedTextColor = Color.White,
         unfocusedTextColor = Color.White,
-        containerColor = colorResource(R.color.container_bacground_dark)
-
+        containerColor = colorResource(R.color.container_bacground_dark),
+        errorContainerColor = colorResource(R.color.container_bacground_dark),
+        unfocusedBorderColor = Color.Transparent,
+        focusedBorderColor = Color.Transparent,
+        disabledBorderColor = Color.Transparent,
+        errorTextColor = colorResource(R.color.white_red_inactive),
+        errorBorderColor = colorResource(R.color.white_red_inactive)
     )
     val myButtonColors = ButtonDefaults.filledTonalButtonColors(
         containerColor = colorResource(R.color.white_red_active),
@@ -97,7 +102,8 @@ onContinue: ()-> Unit
                 lineHeight = 40.sp
             )
 
-            TextField(
+            OutlinedTextField(
+                colors = myTextFieldColors,
                 modifier = Modifier
                     .background(Color.Transparent)
                     .fillMaxWidth(),
@@ -116,19 +122,34 @@ onContinue: ()-> Unit
                     keyboardType = KeyboardType.Number,
                     imeAction = ImeAction.Next
                 ),
+                isError = !state.numberError && state.number.isNotBlank(),
                 keyboardActions = KeyboardActions(onNext = { keyboardController?.hide() }),
-                colors = myTextFieldColors,
                 textStyle = MaterialTheme.typography.headlineMedium
             )
             Spacer(modifier = Modifier.height(4.dp))
-            Text(
+
+            if(state.number.isBlank()) {
+                Text(
+                    text = stringResource(id = R.string.number_of_customer_support_text),
+                    color = colorResource(id = R.color.basic_light_gray),
+                    fontSize = 12.sp
+
+                )
+            } else if(!state.numberError) {
+                Text(
+                    text = stringResource(id = R.string.invalid_insert),
+                    color = colorResource(R.color.white_red_inactive),
+                    fontSize = 12.sp
+
+                )
+            } else Text(
                 text = stringResource(id = R.string.number_of_customer_support_text),
                 color = colorResource(id = R.color.basic_light_gray),
                 fontSize = 12.sp
 
             )
 
-            TextField(
+            OutlinedTextField(
                 modifier = Modifier
                     .background(Color.Transparent)
                     .fillMaxWidth()
@@ -150,23 +171,36 @@ onContinue: ()-> Unit
                 ),
                 keyboardActions = KeyboardActions(onNext = { keyboardController?.hide() }),
                 colors = myTextFieldColors,
-                textStyle = MaterialTheme.typography.headlineMedium
+                textStyle = MaterialTheme.typography.headlineMedium,
+                isError = !state.codeError
             )
             Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = stringResource(id = R.string.code_support_text),
-                color = colorResource(id = R.color.basic_light_gray),
-                fontSize = 12.sp
 
-            )
-            TextField(
+            if(state.codeError) {
+                Text(
+                    text = stringResource(id = R.string.code_support_text),
+                    color = colorResource(id = R.color.basic_light_gray),
+                    fontSize = 12.sp
+
+                )
+            } else {
+                Text(
+                    text = stringResource(id = R.string.invalid_insert),
+                    color = colorResource(R.color.white_red_inactive),
+                    fontSize = 12.sp
+
+                )
+            }
+
+
+            OutlinedTextField(
                 modifier = Modifier
                     .background(Color.Transparent)
                     .fillMaxWidth()
                     .padding(top = dimensionResource(R.dimen.medium_padding)),
                 shape = RoundedCornerShape(16.dp),
                 value = state.name,
-                onValueChange = {  viewModel.dispatch(RegistrationAction.NameChanged(it)) },
+                onValueChange = { viewModel.dispatch(RegistrationAction.NameChanged(it)) },
                 enabled = true,
                 placeholder = {
                     Text(
@@ -181,16 +215,25 @@ onContinue: ()-> Unit
                 ),
                 keyboardActions = KeyboardActions(onNext = { keyboardController?.hide() }),
                 colors = myTextFieldColors,
-                textStyle = MaterialTheme.typography.headlineMedium
+                textStyle = MaterialTheme.typography.headlineMedium,
+                isError = !state.nameError
             )
             Spacer(modifier = Modifier.height(4.dp))
-            Text(
-                text = stringResource(id = R.string.name_support_text),
-                color = colorResource(id = R.color.basic_light_gray),
+            if(state.nameError) {
+                Text(
+                    text = stringResource(id = R.string.name_support_text),
+                    color = colorResource(id = R.color.basic_light_gray),
+                    fontSize = 12.sp
+
+                )
+            } else  Text(
+                text = stringResource(id = R.string.invalid_insert),
+                color = colorResource(R.color.white_red_inactive),
                 fontSize = 12.sp
 
             )
-            TextField(
+
+            OutlinedTextField(
                 modifier = Modifier
                     .background(Color.Transparent)
                     .fillMaxWidth()
@@ -208,19 +251,28 @@ onContinue: ()-> Unit
                 keyboardOptions = KeyboardOptions(
                     capitalization = KeyboardCapitalization.None,
                     keyboardType = KeyboardType.Text,
-                    imeAction = ImeAction.Next // Изменено: ImeAction.Next для перехода к следующему полю
+                    imeAction = ImeAction.Next
                 ),
                 keyboardActions = KeyboardActions(onNext = { keyboardController?.hide() }),
                 colors = myTextFieldColors,
-                textStyle = MaterialTheme.typography.headlineMedium
+                textStyle = MaterialTheme.typography.headlineMedium,
+                isError = !state.surnameError
             )
-            Spacer(modifier = Modifier.height(4.dp)) // Добавим немного пространства между TextField и supportingText
-            Text(
-                text = stringResource(id = R.string.surname_support_text),
-                color = colorResource(id = R.color.basic_light_gray),
+            Spacer(modifier = Modifier.height(4.dp))
+            if(state.surnameError) {
+                Text(
+                    text = stringResource(id = R.string.name_support_text),
+                    color = colorResource(id = R.color.basic_light_gray),
+                    fontSize = 12.sp
+
+                )
+            } else  Text(
+                text = stringResource(id = R.string.invalid_insert),
+                color = colorResource(R.color.white_red_inactive),
                 fontSize = 12.sp
 
             )
+
 
         }
         val annotatedString = buildAnnotatedString {
@@ -244,8 +296,10 @@ onContinue: ()-> Unit
                 color = colorResource(R.color.addition_light_gray)
             )
             FilledTonalButton(
-                { viewModel.dispatch(RegistrationAction.Submit)
-                onContinue()},
+                {
+                    viewModel.dispatch(RegistrationAction.Submit)
+                    onContinue()
+                },
                 colors = myButtonColors,
                 modifier = Modifier.fillMaxWidth(),
                 enabled = state.isButtonEnabled
